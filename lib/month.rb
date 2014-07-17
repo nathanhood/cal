@@ -4,6 +4,11 @@ class Month
 
   def initialize(month, year)
     @month = month
+    @year = year
+  end
+
+  def header
+    "#{name} #{@year}".center(20).rstrip
   end
 
   def name()
@@ -11,9 +16,9 @@ class Month
   end
 
   def to_s
-<<EOS
-     July 2017
-Su Mo Tu We Th Fr Sa
+    output = header
+    output << "\nSu Mo Tu We Th Fr Sa\n"
+    output << <<EOS
                    1
  2  3  4  5  6  7  8
  9 10 11 12 13 14 15
