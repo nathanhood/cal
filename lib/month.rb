@@ -5,16 +5,21 @@ class Month
   MONTHS = [nil, "January", "February", "March", "April", "May", "June", "July",
     "August", "September", "October", "November", "December"]
 
-  attr_reader :length, :month_array
+  attr_reader :length, :month_array, :year_header
+  attr_accessor :year, :month
 
   def initialize(month, year)
     @month = month
-    @year = Year.new(year)
+    @year = year
     build_month
   end
 
   def header
-    "#{name} #{@year.year}".center(20).rstrip
+    "#{name} #{year}".center(20).rstrip
+  end
+
+  def year_header
+    "#{name}".center(20)
   end
 
   def name()
@@ -25,7 +30,7 @@ class Month
     month = @month
     l = 30 + (month + (month/8).floor) % 2
     if @month == 2
-      unless @year.leap_year?
+      unless Year.leap_year?(@year)
         return l -= 2
       end
       return l -= 1
@@ -57,6 +62,7 @@ class Month
       output << "#{final_week}\n"
     end
     return output
+
   end
 
   def build_month
@@ -68,7 +74,7 @@ class Month
   end
 
   def build_week(index)
-    month_start = ZellersCongruence.calculate(@month, @year.year)
+    month_start = ZellersCongruence.calculate(@month, year)
     month_length = length
     week = []
     if index == 0
