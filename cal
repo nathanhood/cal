@@ -1,19 +1,30 @@
 #!/usr/bin/env ruby
 
 
-if ARGV[0] && ARGV[1]
+if !ARGV[0]
+  puts "Must enter a date (ex - 03 2012/ MM YYYY)"
+elsif ARGV[0] && ARGV[1] && ARGV[2]
+  puts "Cal takes only the month and year (ex - 03 2012/ MM YYYY)"
+elsif ARGV[0] && ARGV[1]
   require_relative 'lib/month'
-
   month = ARGV[0].to_i
   year = ARGV[1].to_i
-
-  month = Month.new(month, year)
-  puts month.to_s
+  if month > 12 || month < 1
+    puts "That's not a month! There are only 12 months in a year."
+  else
+    month = Month.new(month, year)
+    puts month.to_s
+  end
 elsif ARGV[0] && ARGV[0].length == 4
   require_relative 'lib/month'
-
   year = ARGV[0].to_i
 
-  year = Year.new(year)
-  puts year.to_s
+  if year < 1800 || year > 3000
+    puts "Year has to be between 1800 - 3000"
+  else
+    year = ARGV[0].to_i
+
+    year = Year.new(year)
+    puts year.to_s
+  end
 end
