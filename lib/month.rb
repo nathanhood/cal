@@ -62,7 +62,6 @@ class Month
       output << "#{final_week}\n"
     end
     return output
-
   end
 
   def build_month
@@ -81,15 +80,13 @@ class Month
       day_count = 1
       week.insert(month_start, day_count)
       day_count += 1
-      if month_start < 6
-        (month_start + 1).upto(6) do |i|
-          week[i] = day_count
-          day_count += 1
-        end
+      (month_start + 1).upto(6) do |i|
+        week[i] = day_count
+        day_count += 1
       end
     else
       day_count = ((7 * index) - month_start) + 1
-      0.upto(6) do |i|
+      7.times do |i|
         if day_count <= month_length
           week[i] = day_count
         else
